@@ -4,7 +4,7 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
-    "test": "cypress open"
+    "test": "npm run cypress open"
   },
   "keywords": [],
   "author": "",

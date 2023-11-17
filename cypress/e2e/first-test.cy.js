@@ -1,4 +1,3 @@
-const URL_DE_TU_PAGINA = 'https://admin-qa.carpedmdating.com/login'
 const URL_API =  'https://api-qa.carpedmdating.com/api'
 const ENDPOINTS =  {
   GET_TEMP_CODE: `${URL_API}/Auth/get-tempcode` // template strings *``* '' "" 
@@ -7,7 +6,7 @@ const ENDPOINTS =  {
 describe('Login Flow: Failed', () => {
   it('should log in successfully', () => {
     // Visitar la página de inicio de sesión
-    cy.visit(URL_DE_TU_PAGINA)
+    cy.visit('/login')
     // Llenar el campo Email
     cy.get('#email').type('tu_correo@example.com')
     // Llenar el campo Password
