@@ -4,12 +4,13 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
-    "test": "npm run cypress open"
+    "cypress:open": "cypress open",
+    "test": "npm run cypress:open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.3.1"
+    "cypress": "^13.5.1"
   }
 }

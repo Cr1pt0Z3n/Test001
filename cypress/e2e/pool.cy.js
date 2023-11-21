@@ -1,13 +1,11 @@
-const email = "cuentatest123321cuentates.t@gmail.com"
-const password = 'Test123#'
 
-// const status = ["SUBMITTED", "PAID", "BCKCOMPLETED"]
+// const status = ["SUBMITTED", "HOLD"]
 
 describe("pool admin", ()=>{
 
     beforeEach("Pre conditions",()=>{
         cy.session("Login", ()=>{
-            cy.login(email, password).wait(5000)
+            cy.login(Cypress.env("email"), Cypress.env("password")).wait(5000)
         })
     })
 
