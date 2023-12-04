@@ -1,4 +1,6 @@
 describe("User Search", () => {
+    const searchTerm = "Joyline";
+    const searchMatch = "Laura";
 
     beforeEach("Preconditions", () => {
         cy.session("Login", () => {
@@ -7,13 +9,10 @@ describe("User Search", () => {
     });
 
     it("Search by Name - Click First Result", () => {
-        const searchTerm = "Joyline";
-        const searchMatch = "Laura"
-
         cy.visit("/Pool").wait(4000);
 
         // Type the search term in the search bar
-        cy.get('.search-bar .form-control').should('exist').type(searchTerm);
+        cy.getSearchBar().type(searchTerm);
 
         // Intercept API call for search-paginated-users
         cy.intercept('POST', "https://api-qa.carpedmdating.com/api/User/search-paginated-users").as('paginatedUsers');
@@ -22,18 +21,31 @@ describe("User Search", () => {
         cy.wait('@paginatedUsers');
 
         // Click on the image of the first result
-        cy.get('.wrap-avatar-name > .MuiAvatar-root > .MuiAvatar-img').click();
+        cy.getFirstResult().click();
 
-        cy.get('#simple-tab-2 > .MuiTab-wrapper').click();
+        cy.getTab('2').click();
 
         cy.get('.mci-matchmaker-button').click();
 
-        cy.get('.search-bar .form-control').should('exist').type(searchMatch);
+        cy.getSearchBar().type(searchMatch);
 
-        cy.get('.wrap-avatar-name > .MuiAvatar-root > .MuiAvatar-img').click();
+        cy.getFirstResult().click();
 
         cy.get('.container-match-manually-button-card-member > .MuiButtonBase-root > .MuiButton-label').click();
 
         cy.get('.MuiButton-label').click();
     });
+});
+
+// Custom commands
+Cypress.Commands.add('getSearchBar', () => {
+    return cy.get('.search-bar .form-control').should('exist');
+});
+
+Cypress.Commands.add('getFirstResult', () => {
+    return cy.get('.wrap-avatar-name > .MuiAvatar-root > .MuiAvatar-img');
+});
+
+Cypress.Commands.add('getTab', (tabNumber) => {
+    return cy.get(`#simple-tab-${tabNumber} > .MuiTab-wrapper`);
 });
